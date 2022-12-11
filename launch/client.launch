@@ -4,7 +4,7 @@
   <arg name="ns" default="quanergy" /> <!-- "quanergy" -->
   <arg name="topic" default="points_raw" /> <!-- "points" -->
   <arg name="frame" default="velodyne" />
-  <arg name="return" default="0" /> <!-- 0, 1, 2, all, or all_separate_topics -->
+  <arg name="return" default="2" /> <!-- 0 for max intensity, 1, 2 for max range, all, or all_separate_topics -->
 
   <!-- driver -->
     <node name="lidar_node"
