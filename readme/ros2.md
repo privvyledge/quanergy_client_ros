@@ -30,15 +30,15 @@ sudo apt install python3-colcon-common-extensions
 Clone the SDK and the ROS repository
 
 ```
-mkdir -p ~/QuanergySystems/sdk_ws/src
-cd ~/QuanergySystems/sdk_ws/src
-git clone https://github.com/QuanergySystems/quanergy_client.git
-git clone https://github.com/QuanergySystems/quanergy_client_ros.git
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
+git clone https://github.com/privvyledge/quanergy_client.git
+git clone https://github.com/privvyledge/quanergy_client_ros.git
 ```
 Build QuanergyClientRos
 
 ```
-cd ~/QuanergySystems/sdk_ws
+cd ~/ros2_ws/sdk_ws
 colcon build
 ```
 ## Testing Build
@@ -46,7 +46,7 @@ In the instructions below, substitute the appropriate distrobution for `<distro>
 
 ```
 source /opt/ros/<distro>/setup.bash
-source ~/QuanergySystems/sdk_ws/install/setup.bash
+source ~/ros2_ws/install/setup.bash
 ros2 launch quanergy_client_ros client.launch.py host:=<hostname_or_ip>
 ```
 In a separate terminal, the following commands will show the output rate you are getting from your sensor.
@@ -63,5 +63,5 @@ ros2 run quanergy_client_ros client_node --help
 To add ROS environment configuration automatically to every future bash session
 ```
 echo "source /opt/ros/<distro>/setup.bash" >> ~/.bashrc
-echo "source ~/QuanergySystems/catkin_ws/devel_isolated/setup.bash" >> ~/.bashrc
+echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
 ```
