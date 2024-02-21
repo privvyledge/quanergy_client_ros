@@ -45,6 +45,10 @@ public:
       ros_cloud.header.stamp = ros::Time::now();
     }
 
+    // use_ros_time_ is not set to True no matter what. Todo: find issue or report to creators.
+    // Todo: see (https://github.com/QuanergySystems/quanergy_client_ros/issues/7#issue-383775834) for exact issue but for an older version.
+    ros_cloud.header.stamp = ros::Time::now();
+
     // don't block if publisher isn't available
     std::unique_lock<std::timed_mutex> lock(cloud_publisher_mutex_, std::chrono::milliseconds(10));
     if (lock)
