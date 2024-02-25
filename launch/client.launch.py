@@ -12,6 +12,7 @@ def generate_launch_description():
     ns = LaunchConfiguration('ns')
     topic = LaunchConfiguration('topic')
     frame = LaunchConfiguration('frame')
+    return_type = LaunchConfiguration('return_type')
 
     host_arg = DeclareLaunchArgument(
         name='host',
@@ -36,6 +37,15 @@ def generate_launch_description():
         description='Frame name inserted in the point cloud.'
     )
 
+    return_type_arg = DeclareLaunchArgument(
+            name='return_type',
+            default_value="all",
+            description="Return selection. For 3 returns, 'all' creates an unorganized point cloud."
+                        "For single return, explicitly setting a value produces an error if the selection "
+                        "doesn't match the packet. "
+                        "options: 0, 1, 2, all, or all_separate_topics "
+    )
+
     client_node = Node(
         package='quanergy_client_ros',
         namespace=ns,
@@ -47,7 +57,8 @@ def generate_launch_description():
                 "--settings", PathJoinSubstitution(
                     [FindPackagePrefix('quanergy_client_ros'), 'settings', 'client.xml']),
                 "--topic", topic,
-                "--frame", frame
+                "--frame", frame,
+                "--return", return_type
         ]
     )
 
@@ -56,5 +67,6 @@ def generate_launch_description():
         ns_arg,
         topic_arg,
         frame_arg,
+        return_type_arg,
         client_node
     ])
