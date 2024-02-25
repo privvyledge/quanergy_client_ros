@@ -13,6 +13,10 @@ def generate_launch_description():
     topic = LaunchConfiguration('topic')
     frame = LaunchConfiguration('frame')
     return_type = LaunchConfiguration('return_type')
+    lidar_config_file = LaunchConfiguration('lidar_config_file')
+
+    lidar_config_file_path = PathJoinSubstitution(
+                    [FindPackagePrefix('quanergy_client_ros'), 'settings', 'client.xml'])
 
     host_arg = DeclareLaunchArgument(
         name='host',
@@ -46,6 +50,12 @@ def generate_launch_description():
                         "options: 0, 1, 2, all, or all_separate_topics "
     )
 
+    lidar_config_arg = DeclareLaunchArgument(
+            name='lidar_config_file',
+            default_value=lidar_config_file_path,
+            description='File containing LIDAR settings.'
+    )
+
     client_node = Node(
         package='quanergy_client_ros',
         namespace=ns,
@@ -54,8 +64,7 @@ def generate_launch_description():
         output='screen',
         arguments=[
                 "--host", host,
-                "--settings", PathJoinSubstitution(
-                    [FindPackagePrefix('quanergy_client_ros'), 'settings', 'client.xml']),
+                "--settings", lidar_config_file,
                 "--topic", topic,
                 "--frame", frame,
                 "--return", return_type
@@ -68,5 +77,6 @@ def generate_launch_description():
         topic_arg,
         frame_arg,
         return_type_arg,
+        lidar_config_arg,
         client_node
     ])
