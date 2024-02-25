@@ -58,7 +58,7 @@ def generate_launch_description():
                     [FindPackagePrefix('quanergy_client_ros'), 'settings', 'client.xml']),
                 "--topic", topic,
                 "--frame", frame,
-                "--return", return_type
+                # "--return", return_type
         ]
     )
 
