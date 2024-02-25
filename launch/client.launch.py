@@ -12,6 +12,8 @@ def generate_launch_description():
     ns = LaunchConfiguration('ns')
     topic = LaunchConfiguration('topic')
     frame = LaunchConfiguration('frame')
+    calibrate = LaunchConfiguration('calibrate')
+    frame_rate = LaunchConfiguration('frame_rate')
     return_type = LaunchConfiguration('return_type')
     lidar_config_file = LaunchConfiguration('lidar_config_file')
 
@@ -41,6 +43,18 @@ def generate_launch_description():
         description='Frame name inserted in the point cloud.'
     )
 
+    calibrate_arg = DeclareLaunchArgument(
+            name='calibrate',
+            default_value='False',
+            description='whether to calculate the parameters from sensor data before applying'
+    )
+
+    frame_rate_arg = DeclareLaunchArgument(
+            name='frame_rate',
+            default_value='15.0',
+            description='frame rate of the sensor; used when calibrate == true only'
+    )
+
     return_type_arg = DeclareLaunchArgument(
             name='return_type',
             default_value="all",
@@ -67,7 +81,9 @@ def generate_launch_description():
                 "--settings", lidar_config_file,
                 "--topic", topic,
                 "--frame", frame,
-                "--return", return_type
+                "--calibrate", calibrate,
+                "--frameRate", frame_rate,
+                "--return", return_type,
         ]
     )
 
@@ -76,6 +92,8 @@ def generate_launch_description():
         ns_arg,
         topic_arg,
         frame_arg,
+        calibrate_arg,
+        frame_rate_arg,
         return_type_arg,
         lidar_config_arg,
         client_node
