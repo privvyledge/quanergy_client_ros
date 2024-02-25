@@ -86,10 +86,10 @@ def generate_launch_description():
         arguments=[
                 "--settings-file", lidar_config_file,
                 "--host", host,
-                "--use-ros-time", use_ros_time,
+                # "--use-ros-time", use_ros_time,
                 "--topic", topic,
                 "--frame", frame,
-                "--calibrate", calibrate,
+                # "--calibrate", calibrate,
                 "--frame-rate", frame_rate,
                 "--return", return_type,
         ]
