@@ -9,6 +9,7 @@ from launch_ros.substitutions import FindPackagePrefix
 
 def generate_launch_description():
     host = LaunchConfiguration('host')
+    use_ros_time = LaunchConfiguration('use_ros_time')
     ns = LaunchConfiguration('ns')
     topic = LaunchConfiguration('topic')
     frame = LaunchConfiguration('frame')
@@ -23,6 +24,12 @@ def generate_launch_description():
     host_arg = DeclareLaunchArgument(
         name='host',
         description='Host name or IP of the sensor.'
+    )
+
+    use_ros_time_arg = DeclareLaunchArgument(
+            name='use_ros_time',
+            default_value='True',
+            description='Flag determining whether to use ROS time in message. Uses sensor time otherwise'
     )
 
     ns_arg = DeclareLaunchArgument(
@@ -77,18 +84,20 @@ def generate_launch_description():
         name='client_node',
         output='screen',
         arguments=[
+                "--settings-file", lidar_config_file,
                 "--host", host,
-                "--settings", lidar_config_file,
+                "--use-ros-time", use_ros_time,
                 "--topic", topic,
                 "--frame", frame,
                 "--calibrate", calibrate,
-                "--frameRate", frame_rate,
+                "--frame-rate", frame_rate,
                 "--return", return_type,
         ]
     )
 
     return LaunchDescription([
         host_arg,
+        use_ros_time_arg,
         ns_arg,
         topic_arg,
         frame_arg,
